@@ -1,0 +1,36 @@
+on init
+    mkdir /dev/usb-ffs 0770 shell shell
+    mkdir /dev/usb-ffs/adb 0770 shell shell
+    mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=2000
+    write /sys/class/android_usb/android0/f_ffs/aliases adb
+    
+    # touchscreen
+    mkdir /mnt/factory 0666 system system
+
+on boot
+    # touchscreen
+    chown system system /sys/class/input/input0/enabled
+    chown system system /sys/devices/tegradc.0/enable
+    chown system system /sys/devices/tegradc.1/enable
+    chown system system /sys/devices/platform/host1x/nvavp/boost_sclk
+    chown system system /sys/devices/virtual/misc/touch/report_mode
+    chown system system /sys/devices/virtual/misc/touch/selftest_spi_burst_read
+    chown system system /sys/devices/virtual/misc/touch/selftest_spi_burst_write
+    chown system system /sys/devices/virtual/misc/touch/selftest_spi_byte_read
+    chown system system /sys/devices/virtual/misc/touch/selftest_spi_byte_write
+    chown system system /sys/devices/virtual/misc/touch/touchfile_check
+    chown system system /sys/devices/virtual/misc/touch/selftest_enable
+    chown system system /sys/devices/virtual/misc/touch/get_platform_id_gpio
+    chown system system /sys/class/input/input1/enabled
+    chown system system /sys/class/input/input2/enabled
+    mount ext4 /dev/block/platform/sdhci-tegra.3/by-name/FCT /mnt/factory ro
+    mount ext4 /dev/block/platform/sdhci-tegra.3/by-name/APP /system ro
+    symlink /system/vendor /vendor
+
+# Always start adbd on userdebug and eng builds
+on property:ro.debuggable=1
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
+
+# touchscreen
+service rm_ts_service /sbin/touchscreen/rm-runner.sh
