@@ -36,6 +36,7 @@ PRODUCT_PACKAGES += \
     fstab.tn8 \
     init.cal.rc \
     init.hdcp.rc \
+    init.recovery.tn8.rc \
     init.t124.rc \
     init.tegra.rc \
     init.tegra_emmc.rc \
@@ -43,7 +44,6 @@ PRODUCT_PACKAGES += \
     init.tn8.rc \
     init.tn8.usb.rc \
     power.tn8.rc \
-    init.recovery.tn8.rc \
     ueventd.tn8.rc
 
 PRODUCT_PACKAGES += \

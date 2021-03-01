@@ -30,6 +30,7 @@ BOARD_KERNEL_BASE := 0x10000000
 BOARD_KERNEL_PAGESIZE := 2048
 
 # Recovery
+TARGET_RECOVERY_INITRC := device/nvidia/wx_na_do/init.rc
 TARGET_RECOVERY_FSTAB := device/nvidia/wx_na_do/recovery.fstab
 BOARD_HAS_NO_SELECT_BUTTON := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
